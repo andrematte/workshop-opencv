@@ -1,0 +1,99 @@
+site_name: Workshop OpenCV
+repo_url: https://github.com/andrematte/workshop-opencv
+repo_name: andrematte/workshop-opencv
+edit_uri: tree/main/docs
+
+theme: 
+  name: material
+  language: pt-br
+  custom_dir: docs/overrides
+  # logo: assets/logo.png
+  favicon: assets/logo.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.tracking
+    - toc.follow
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+
+  font:
+      text: Lato
+      code: JetBrains Mono
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+      primary: blue grey
+      accent: #2E6CCC
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+      primary: blue grey
+      accent: #2E6CCC
+
+plugins: 
+  - search
+  - privacy
+  
+markdown_extensions:
+  - tables
+  - admonition
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  cli: "cd ~/andrematte/workshop-opencv"
+  # generator: false
+  # subtitle: "PhD Student @ Universidade Federal do Pará"
+  # bio: Machine Learning | Computer Vision | Data Analysis
+  # avatar: assets/avatar.png
+  avatar: https://github.com/andrematte.png
+  # socials:
+  #   - github: https://github.com/andrematte
+  #   - linkedin: https://linkedin.com/in/andrematte
+  #   - lattes: http://lattes.cnpq.br/5642339206700236
+  #   - email: mailto:carlosandrematte@gmail.com
+  # social:
+  #   - icon: fontawesome/brands/github-alt
+  #     link: https://github.com/andrematte
+  #   - icon: fontawesome/brands/linkedin
+  #     link: https://linkedin.com/in/andrematte
+  #   - icon: fontawesome/solid/user-tie
+  #     link: https://andrematte.github.io
+  #   - icon: fontawesome/solid/user-graduate
+  #     link: http://lattes.cnpq.br/5642339206700236
+  #   - icon: fontawesome/solid/envelope
+  #     link: mailto:carlosandrematte@gmail.com
+    
+copyright: |
+  &copy; 2024 <a href="https://github.com/andrematte" target="_blank">André Mattos</a>
+
+extra_javascript:
+  - javascripts/extra.js
+
+extra_css:
+  - stylesheets/extra.css

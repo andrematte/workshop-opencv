@@ -1,0 +1,50 @@
+<!-- Post excerpt -->
+<article class="md-post md-post--excerpt">
+    <!-- Post content -->
+    <div class="md-post__content md-typeset">
+      
+        <h4><a href="{{ post.url | url }}">{{ post.title }}</a></h4>
+  
+    </div>
+    <header class="md-post__header">
+  
+      <!-- Post metadata -->
+      <div class="md-post__meta md-meta">
+        <ul class="md-meta__list">
+  
+          <!-- Post date -->
+          <li class="md-meta__item">
+            <time datetime="{{ post.config.date.created }}">
+              {{- post.config.date.created | date -}}
+            </time>
+            {#- Collapse whitespace -#}
+          </li>
+  
+          <!-- Post categories -->
+          {% if post.categories %}
+            <li class="md-meta__item">
+              {{ lang.t("blog.categories.in") }}
+              {% for category in post.categories %}
+                <a
+                  href="{{ category.url | url }}"
+                  class="md-meta__link"
+                >
+                  {{- category.title -}}
+                </a>
+                {%- if loop.revindex > 1 %}, {% endif -%}
+              {% endfor -%}
+            </li>
+          {% endif %}
+        </ul>
+  
+        <!-- Draft marker -->
+        {% if post.config.draft %}
+          <span class="md-draft">
+            {{ lang.t("blog.draft") }}
+          </span>
+        {% endif %}
+      </div>
+    </header>
+  
+    
+  </article>

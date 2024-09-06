@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "workshop-opencv"
+version = "0.1.0"
+description = ""
+authors = ["Andre Mattos <carlosandrematte@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+opencv-python = "^4.10.0.84"
+mediapipe = "^0.10.15"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.1.1"
+taskipy = "^1.13.0"
+
+
+[tool.poetry.group.docs.dependencies]
+mkdocs-material = "^9.5.34"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+docs = "mkdocs serve --open -w ."

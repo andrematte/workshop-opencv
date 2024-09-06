@@ -1,0 +1,95 @@
+{% extends "main.html" %}
+
+<!-- Page content -->
+{% block container %}
+<div class="md-content landing" data-md-component="content">
+    <div class="md-content__inner">
+
+        <!-- Header -->
+        <header class="md-typeset">
+
+            <div class="landing-hero">
+                <h1 class="landing-header">
+                    {% if config.extra.avatar %}<img class="landing-avatar" src="{{ config.extra.avatar | url }}">{% endif %}
+                    {{ config.site_name }}
+                </h1>
+    
+                {% if config.extra.subtitle %}
+                <p class="landing-subtitle" {% if config.extra.bio %}style="font-weight:bold;"{% endif %}>{{ config.extra.subtitle }}</p>
+                {% endif %}
+    
+                {% if config.extra.bio %}
+                <p class="landing-bio">{{ config.extra.bio }}</p>
+                {% endif %}
+    
+                {% if config.extra.socials %}
+                <div class="landing-socials">
+                    {% set social_icons = {
+                    'linkedin': 'fontawesome/brands/linkedin-in.svg',
+                    'twitter': 'fontawesome/brands/twitter.svg',
+                    'x': 'fontawesome/brands/x-twitter.svg',
+                    'facebook': 'fontawesome/brands/facebook-f.svg',
+                    'instagram': 'fontawesome/brands/instagram.svg',
+                    'github': 'fontawesome/brands/github-alt.svg',
+                    'gitlab': 'fontawesome/brands/gitlab.svg',
+                    'bitbucket': 'fontawesome/brands/bitbucket.svg',
+                    'stackoverflow': 'fontawesome/brands/stack-overflow.svg',
+                    'youtube': 'fontawesome/brands/youtube.svg',
+                    'vimeo': 'fontawesome/brands/vimeo-v.svg',
+                    'twitch': 'fontawesome/brands/twitch.svg',
+                    'rss': 'fontawesome/solid/rss.svg',
+                    'email': 'fontawesome/solid/envelope.svg',
+                    'phone': 'fontawesome/solid/phone.svg',
+                    'whatsapp': 'fontawesome/brands/whatsapp.svg',
+                    'telegram': 'fontawesome/brands/telegram.svg',
+                    'discord': 'fontawesome/brands/discord.svg',
+                    'tiktok': 'fontawesome/brands/tiktok.svg',
+                    'snapchat': 'fontawesome/brands/snapchat.svg',
+                    'pinterest': 'fontawesome/brands/pinterest.svg',
+                    'tumblr': 'fontawesome/brands/tumblr.svg',
+                    'medium': 'fontawesome/brands/medium-m.svg',
+                    'wordpress': 'fontawesome/brands/wordpress-simple.svg',
+                    'line': 'fontawesome/brands/line.svg',
+                    'signal': 'fontawesome/brands/signal-messenger.svg',
+                    'lattes': 'fontawesome/solid/user-graduate.svg',
+                    'linkedin': 'fontawesome/brands/linkedin.svg',
+                    'email': 'fontawesome/solid/envelope.svg',
+                    } %}
+                    {% for social in config.extra.socials %}
+                    {% for social_name, social_link in social.items() %}
+                    <a href="{{ social_link }}" target="_blank" title="{{ social_name | capitalize }}">
+                        {% if social_name in social_icons %}
+                        <span class="twemoji">
+                            {% include ".icons/" ~ social_icons[social_name] %}
+                        </span>
+                        {% else %}
+                        <span class="twemoji"> {# Default icon if no match is found #}
+                            {% include ".icons/fontawesome/solid/link.svg" %}=
+                        </span>
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+            
+
+        </header>
+
+        <!-- Posts -->
+        <!-- <h1> Latest Posts</h1> -->
+        {% for post in posts %}
+        {% include "partials/posts-index.html" %}
+        {% endfor %}
+
+        <!-- Pagination -->
+        {% if pagination %}
+        {% block pagination %}
+        {% include "partials/pagination.html" %}
+        {% endblock %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
