@@ -35,7 +35,7 @@ imagem = cv2.imread("media/gatogordo.jpg", 1)
 imagem_rgb = cv2.cvtColor(imagem, cv2.COLOR_BGR2RGB)
 
 # Exiba a imagem
-plt.imshow(imagem)
+plt.imshow(imagem_rgb)
 ```
 
 A função `cv2.resize()` permite a operação de redimensionamento de imagens.
@@ -170,17 +170,6 @@ carta = cv2.warpPerspective(dragon, matriz, (width, height))
 # Exiba a imagem resultante
 plt.imshow(carta)
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 <div class="grid cards" markdown>
 - :arrow_right:  Continua na próxima seção: [**Operações de Filtragem**](4-Operações-de-Filtragem.md).
