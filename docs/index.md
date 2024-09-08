@@ -51,5 +51,5 @@ Os conteúdos da aula prática foram implementados no formato de Jupyter Noteboo
 5. [**Operações de limiarização e detecção de contornos**](Conteúdo-do-Workshop/5-Operações-de-Limiarização-e-Detecção-de-Contornos.md)
       1. Operações de limiarização
       2. Detecção de contornos
-6. [**Projeto Final**](Projeto-Final/Projeto-Final.md)
+6. [**Projeto Final**](Projeto-Final.md)
 
