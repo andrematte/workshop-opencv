@@ -40,7 +40,7 @@ Os conteúdos da aula prática foram implementados no formato de Jupyter Noteboo
       2. Extração de Regiões de Interesse (ROI)
       3. Desenhando formas geométricas nas imagens
       4. Inserindo texto nas imagens
-      5. Operações lógicas e matemáticas
+      5. Operações lógicas
 3. [**Transformações geométricas**](Conteúdo-do-Workshop/3-Transformações-Geométricas.md)
       1. Redimensionamento
       2. Transformação de perspectiva
