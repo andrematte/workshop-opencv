@@ -3,6 +3,18 @@ repo_url: https://github.com/andrematte/workshop-opencv
 repo_name: andrematte/workshop-opencv
 edit_uri: tree/main/docs
 
+nav:
+  - Home: index.md
+  - Configuração do Ambiente: configuracao.md
+  - Conteúdo do Workshop: 
+      - 1 Introdução ao OpenCV: Conteúdo-do-Workshop/1-Introdução-ao-OpenCV.md
+      - 2 Operações Básicas: Conteúdo-do-Workshop/2-Operações-Básicas.md
+      - 3 Transformações Geométricas: Conteúdo-do-Workshop/3-Transformações-Geométricas.md
+      - 4 Operações de Filtragem: Conteúdo-do-Workshop/4-Operações-de-Filtragem.md
+      - 5 Operações de Limiarização e Detecção de Contornos: Conteúdo-do-Workshop/5-Operações-de-Limiarização-e-Detecção-de-Contornos.md
+  - Projeto Final: Projeto-Final.md
+
+
 theme: 
   name: material
   language: pt-BR
@@ -89,6 +101,7 @@ extra:
   #   - icon: fontawesome/solid/envelope
   #     link: mailto:carlosandrematte@gmail.com
     
+
 copyright: |
   &copy; 2024 <a href="https://github.com/andrematte" target="_blank">André Mattos</a>
 
