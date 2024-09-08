@@ -173,5 +173,5 @@ cv2.VideoCapture(0)
 ```
 
 <div class="grid cards" markdown>
-- :arrow_right:  Continua na próxima seção: [**Operações básicas**](Conteúdo-do-Workshop/2-Operações-Básicas.md).
+- :arrow_right:  Continua na próxima seção: [**Operações básicas**](2-Operações-Básicas.md).
 </div>
