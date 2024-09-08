@@ -7,7 +7,7 @@
 
 > **Local:** [Centro de Computação de Alto Desempenho - UFPA](https://maps.app.goo.gl/BkW6Ry8ZRGAkagEs5)
 
-> **Ministrado por:** Carlos André de Mattos (LabCity - UFPA)
+> **Ministrado por:** Carlos André Mattos ([@andrematte](https://github.com/andrematte) - LabCity - UFPA)
 
 ## Sobre este Workshop
 Este workshop explorará, na prática, as ferramentas básicas utilizadas em projetos de Visão Computacional. A compreensão dessas técnicas é crucial para construir uma base sólida em manipulação e processamento de imagens, facilitando a aplicação mais eficaz de algoritmos de Machine Learning em projetos futuros.
