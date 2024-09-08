@@ -35,7 +35,7 @@ Os conteúdos da aula prática foram implementados no formato de Jupyter Noteboo
       2. Leitura, exibição e armazenamento de imagens
       3. Trabalhando com arquivos de vídeo
       4. Trabalhando com o *feed* de uma câmera externa
-2. [**Operações báscias**](Conteúdo-do-Workshop/2-Operações-Básicas.md)
+2. [**Operações básicas**](Conteúdo-do-Workshop/2-Operações-Básicas.md)
       1. Conversão entre espaços de cores (Escala de cinza, RGB, HSV)
       2. Extração de Regiões de Interesse (ROI)
       3. Desenhando formas geométricas nas imagens
