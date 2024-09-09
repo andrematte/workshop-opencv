@@ -5,7 +5,7 @@ edit_uri: tree/main/docs
 
 nav:
   - Home: index.md
-  - Configuração do Ambiente: configuracao.md
+  - Configuração do Ambiente: configuração.md
   - Conteúdo do Workshop: 
       - 1 Introdução ao OpenCV: Conteúdo-do-Workshop/1-Introdução-ao-OpenCV.md
       - 2 Operações Básicas: Conteúdo-do-Workshop/2-Operações-Básicas.md
