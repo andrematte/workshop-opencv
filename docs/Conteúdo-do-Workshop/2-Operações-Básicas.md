@@ -80,6 +80,8 @@ Esse espaço de cores representa as cores de uma forma mais intuitiva:
 - Saturation (Saturação): Define a “pureza” ou intensidade da cor (0 a 100%).
 - Value (Valor de Brilho): Representa o brilho da cor (0 a 100%).
 
+![hsv](../assets/color.jpg)
+
 > Flag: `cv2.COLOR_BGR2HSV`
 
 ```python

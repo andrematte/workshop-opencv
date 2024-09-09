@@ -23,8 +23,6 @@ import matplotlib.pyplot as plt
 ---
 ## Deslizamento de Filtros na Imagem
 
-O redimensionamento altera o tamanho da imagem, aumentando ou reduzindo sua largura e altura.
-
 ```python
 # Carregue a imagem `media/gengar.png` no formato BGR
 imagem = cv2.imread("media/gengar.png", 1)

@@ -69,7 +69,7 @@ Utilize comandos do NumPy para verificar o conteúdo do tensor, o formato do ten
 Podemos também exibir a imagem para verificar seu conteúdo. O OpenCV conta com a função `cv2.imshow()`, que abre a imagem em uma janela, porém esta função não funciona em Notebooks. Para visualizar a imagem Notebooks, vamos utilizar a função `plt.imshow()` do Matplotlib.
 
 ```python
-# Plote a imagem com omapa de cores "Gray".
+# Plote a imagem com o mapa de cores "Gray".
 plt.imshow(imagem_cinza, cmap="Gray")
 ```
 
@@ -124,14 +124,14 @@ Agora a imagem é mostrada corretamente pelo MatPlotLib!
 Vamos salvar a imagem em um arquivo com a função `cv2.imwrite()`.
 
 ```python
-# Salvar a imagem no disco
+# Salve a imagem no disco
 cv2.imwrite("media/gatogordo_corrigido.jpg")
 ```
 
 ---
 ## Trabalhando com Arquivos de Vídeo
 
-Um arquivo de vídeo consiste em uma sequência de imagens. A função `cv2.VideoCapture` é capaz de ler e iterar sobre um frame de cada vez. Portanto, todas as funcionalidades utilizadas a imagens podem ser aplicadas aos frames de vídeo.
+**Um arquivo de vídeo consiste em uma sequência de imagens**. A função `cv2.VideoCapture` é capaz de ler e iterar sobre um frame de cada vez. Portanto, todas as funcionalidades utilizadas a imagens podem ser aplicadas aos frames de vídeo.
 
 Vamos criar um objeto de captura de vídeo:
 
