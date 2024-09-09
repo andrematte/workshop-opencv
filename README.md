@@ -34,6 +34,8 @@ git clone https://github.com/andrematte/workshop-opencv
 cd workshop-opencv
 ```
 
+O uso do Poetry para criação do ambiente virtual isolado e instalação das dependências é recomendado, porém é possível instalar tudo com `pip install opencv-python matplotlib` ou `conda install opencv-python matplotlib`.
+
 ## Configuração utilizando Poetry
 
 O comando `poetry install` irá criar um ambiente virtual contendo as dependências do projeto, listadas em `pyproject.toml`.
