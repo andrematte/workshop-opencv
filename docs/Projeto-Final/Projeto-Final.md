@@ -1,6 +1,6 @@
 > :bulb: **Discussão: Como utilizar uma combinação das técnicas apresentadas em um único projeto?**
 
-![tecnicas](assets/tecnicas.png)
+![tecnicas](../assets/tecnicas.png)
 
 <div class="grid cards" markdown>
 - :archery: **Objetivo do Projeto:** Elaborar um protótipo de sistema para **Detecção de Movimento** em uma câmera de segurança.
@@ -13,4 +13,13 @@
 
 > :bulb: **Dica: a metodologia é composta de seis passos dentre os citados acima.**
 
-![dica](assets/metodologia.png)
+![dica](../assets/metodologia.png)
+
+
+<div class="grid cards" markdown>
+- :brain:  **Tente selecionar as seis etapas necessárias para implementar o detector de movimentos.**
+</div>
+
+<div class="grid cards" markdown>
+- :arrow_right:  A [próxima página](Metodologia.md) apresenta a sequência correta de etapas a serem implementadas.
+</div>
