@@ -69,8 +69,8 @@ Utilize comandos do NumPy para verificar o conteúdo do tensor, o formato do ten
 Podemos também exibir a imagem para verificar seu conteúdo. O OpenCV conta com a função `cv2.imshow()`, que abre a imagem em uma janela, porém esta função não funciona em Notebooks. Para visualizar a imagem Notebooks, vamos utilizar a função `plt.imshow()` do Matplotlib.
 
 ```python
-# Plote a imagem com o mapa de cores "Gray".
-plt.imshow(imagem_cinza, cmap="Gray")
+# Plote a imagem com o mapa de cores "gray".
+plt.imshow(imagem_cinza, cmap="gray")
 ```
 
 ### Imagem Colorida
