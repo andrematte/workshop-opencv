@@ -241,5 +241,5 @@ plt.imshow(imagem_bbox)
 
 
 <div class="grid cards" markdown>
-- :arrow_right:  Continua na próxima seção: [**Projeto Final**](../Projeto-Final.md).
+- :arrow_right:  Continua na próxima seção: [**Projeto Final**](../Projeto-Final/Projeto-Final.md).
 </div>
