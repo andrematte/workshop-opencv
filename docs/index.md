@@ -1,13 +1,4 @@
 ![logo](assets/banner.png)
-> **Duração:** 02 horas
-
-> **Data:** 08/09/2024
-
-> **Horário:** 14:00
-
-> **Local:** [Centro de Computação de Alto Desempenho - UFPA](https://maps.app.goo.gl/BkW6Ry8ZRGAkagEs5)
-
-> **Ministrado por:** Carlos André Mattos ([@andrematte](https://github.com/andrematte) - LabCity - UFPA)
 
 ## Sobre este Workshop
 Este workshop explorará, na prática, as ferramentas básicas utilizadas em projetos de Visão Computacional. A compreensão dessas técnicas é crucial para construir uma base sólida em manipulação e processamento de imagens, facilitando a aplicação mais eficaz de algoritmos de Machine Learning em projetos futuros.
@@ -53,3 +44,9 @@ Os conteúdos da aula prática foram implementados no formato de Jupyter Noteboo
       2. Detecção de contornos
 6. [**Projeto Final**](Projeto-Final.md)
 
+
+## Histórico
+
+> **Seção #1**
+
+>  Ministrado no dia 10/09/2024, às 14:00 no LabCity, localizado no [Centro de Computação de Alto Desempenho](https://maps.app.goo.gl/BkW6Ry8ZRGAkagEs5) da UFPA. Ministrado por: Carlos André Mattos ([@andrematte](https://github.com/andrematte) - LabCity - UFPA)
