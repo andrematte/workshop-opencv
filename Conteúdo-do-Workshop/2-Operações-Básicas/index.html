@@ -1,0 +1,1386 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../1-Introdu%C3%A7%C3%A3o-ao-OpenCV/">
+      
+      
+        <link rel="next" href="../3-Transforma%C3%A7%C3%B5es-Geom%C3%A9tricas/">
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>2 Operações Básicas - Workshop OpenCV</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.d2d77a49.css">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#importando-as-bibliotecas-necessarias" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+<!-- Determine classes -->
+
+
+
+<!-- Header -->
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Cabeçalho"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="../.."
+      title="Workshop OpenCV"
+      class="md-header__button md-logo"
+      aria-label="Workshop OpenCV"
+      data-md-component="logo"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+                <div class="headercli">
+                        <span class="headercli__mark" style="margin-right: 5px;">></span>
+                        <span class="headercli__text"><a class="header-sitename-link" href="../..">cd ~/andrematte/workshop-opencv</a></span>
+                        <div class="cursor"></div>
+                        
+                </div>
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2 Operações Básicas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Color palette toggle -->
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/andrematte/workshop-opencv" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    andrematte/workshop-opencv
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../configura%C3%A7%C3%A3o/" class="md-tabs__link">
+        
+  
+    
+  
+  Configuração do Ambiente
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-Introdu%C3%A7%C3%A3o-ao-OpenCV/" class="md-tabs__link">
+          
+  
+  Conteúdo do Workshop
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Projeto-Final/Projeto-Final/" class="md-tabs__link">
+        
+  
+    
+  
+  Projeto Final
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Workshop OpenCV" class="md-nav__button md-logo" aria-label="Workshop OpenCV" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Workshop OpenCV
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/andrematte/workshop-opencv" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    andrematte/workshop-opencv
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configura%C3%A7%C3%A3o/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuração do Ambiente
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Conteúdo do Workshop
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Conteúdo do Workshop
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-Introdu%C3%A7%C3%A3o-ao-OpenCV/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Introdução ao OpenCV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2 Operações Básicas
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2 Operações Básicas
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#importando-as-bibliotecas-necessarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Importando as bibliotecas necessárias
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversao-de-espacos-de-cores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversão de Espaços de Cores
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conversão de Espaços de Cores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conversao-para-rgb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversão para RGB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversao-para-grayscale-escala-de-cinza" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversão para Grayscale (Escala de Cinza)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hsv-hue-saturation-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSV (Hue, Saturation, Value)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracao-de-regioes-de-interesse-roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extração de Regiões de Interesse (ROI)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desenhando-formas-geometricas-na-imagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenhando Formas Geométricas na Imagem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desenhando Formas Geométricas na Imagem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenhando-linhas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenhando Linhas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desenhando-formas-geometricas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenhando Formas Geométricas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inserindo-textos-na-imagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inserindo Textos na Imagem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operacoes-logicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operações Lógicas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operações Lógicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operacao-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação NOT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacao-and" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação AND
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacao-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação OR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacao-bitwise-xor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação Bitwise XOR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Transforma%C3%A7%C3%B5es-Geom%C3%A9tricas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Transformações Geométricas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-Opera%C3%A7%C3%B5es-de-Filtragem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Operações de Filtragem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-Opera%C3%A7%C3%B5es-de-Limiariza%C3%A7%C3%A3o-e-Detec%C3%A7%C3%A3o-de-Contornos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Operações de Limiarização e Detecção de Contornos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Projeto-Final/Projeto-Final/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Projeto Final
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#importando-as-bibliotecas-necessarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Importando as bibliotecas necessárias
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversao-de-espacos-de-cores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversão de Espaços de Cores
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conversão de Espaços de Cores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conversao-para-rgb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversão para RGB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversao-para-grayscale-escala-de-cinza" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversão para Grayscale (Escala de Cinza)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hsv-hue-saturation-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSV (Hue, Saturation, Value)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracao-de-regioes-de-interesse-roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extração de Regiões de Interesse (ROI)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desenhando-formas-geometricas-na-imagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenhando Formas Geométricas na Imagem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desenhando Formas Geométricas na Imagem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenhando-linhas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenhando Linhas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desenhando-formas-geometricas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenhando Formas Geométricas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inserindo-textos-na-imagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inserindo Textos na Imagem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operacoes-logicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operações Lógicas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operações Lógicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operacao-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação NOT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacao-and" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação AND
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacao-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação OR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacao-bitwise-xor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operação Bitwise XOR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>2 Operações Básicas</h1>
+
+<div class="grid cards">
+<ul>
+<li><img alt="📒" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f4d2.svg" title=":ledger:"> Para acompanhar esta seção, abra o arquivo <code>notebooks/2-operacoesbasicas.ipynb</code>.</li>
+</ul>
+</div>
+<p>Nesta seção iremos aprender as principais operações básicas utilizadas em pipelines de processamento de imagens.</p>
+<ol>
+<li>Conversão de espaços de cor (Escala de Cinza, RGB, HSV)</li>
+<li>Extração de regiões de interesse (ROI)</li>
+<li>Desenho de formas geométricas e textos na imagem</li>
+<li>Operações lógicas entre imagens</li>
+</ol>
+<hr />
+<h2 id="importando-as-bibliotecas-necessarias">Importando as bibliotecas necessárias</h2>
+<p>Vamos iniciar importando as bibliotecas necessárias para esta seção: <code>numpy</code>, <code>cv2</code> e <code>matplotlib.pyplot</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Importe as bibliotecas aqui</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">cv2</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</code></pre></div>
+<hr />
+<h2 id="conversao-de-espacos-de-cores">Conversão de Espaços de Cores</h2>
+<p>Os espaços de cores são maneiras de representar cores, cada um com diferentes finalidades. Os principais espaços de cores usados no processamento de imagens incluem</p>
+<ul>
+<li>Escala de Cinza</li>
+<li>RGB (Red, Green, Blue)</li>
+<li>HSV (Hue/Matiz, Saturação, Brilho)</li>
+</ul>
+<p>No OpenCV, a função <code>cv2.cvtColor()</code> é utilizada para conversão entre os espaços.</p>
+<p>Vamos carregar a imagem <code>media/gatogordo.jpg</code> no formato BGR.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Carregue a imagem colorida (flag 1)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">imagem_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;media/gatogordo.jpg&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Plote a imagem com Matplotlib</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_bgr</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="conversao-para-rgb">Conversão para RGB</h3>
+<p>Na seção anterior realizamos a conversão de BGR para RGB manualmente, mas também é possível utilizar a função <code>cv2.cvtColor()</code></p>
+<blockquote>
+<p>Flag: <code>cv2.COLOR_BGR2RGB</code></p>
+</blockquote>
+<p>RGB é o espaço de cores mais comum, onde cada cor é definida por uma combinação de três valores, que representam a intensidade de cada cor primária: vermelho, verde e azul. A maioria das imagens digitais é representada em RGB.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Converta a imagem de BGR para RGB</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">imagem_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="s2">&quot;media/gatogordo.jpg&quot;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Plote a imagem com Matplotlib</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_rgb</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="conversao-para-grayscale-escala-de-cinza">Conversão para Grayscale (Escala de Cinza)</h3>
+<p>É um espaço de cores com apenas uma dimensão, representando variações de intensidade de luz, indo do preto (valor 0) ao branco (valor 255). Não contém informações de cor, apenas a intensidade luminosa.</p>
+<blockquote>
+<p>Flag: <code>cv2.COLOR_BGR2GRAY</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Converta a imagem de BGR para GRAY</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">imagem_gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagem_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Plote a imagem com Matplotlib</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_gray</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="hsv-hue-saturation-value">HSV (Hue, Saturation, Value)</h3>
+<p>Esse espaço de cores representa as cores de uma forma mais intuitiva:</p>
+<ul>
+<li>Hue (Matiz): Representa a cor (0 a 360° no círculo cromático).</li>
+<li>Saturation (Saturação): Define a “pureza” ou intensidade da cor (0 a 100%).</li>
+<li>Value (Valor de Brilho): Representa o brilho da cor (0 a 100%).</li>
+</ul>
+<p><img alt="hsv" src="../../assets/color.jpg" /></p>
+<blockquote>
+<p>Flag: <code>cv2.COLOR_BGR2HSV</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Converta a imagem de BGR para HSV</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">imagem_hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagem_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+</code></pre></div>
+<div class="grid cards">
+<ul>
+<li><img alt="💡" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f4a1.svg" title=":bulb:"> <strong>Tente exibir cada componente (canal) da imagem em HSV separadamente utilizando o mapa de cores <code>hsv</code> do Matplotlib.</strong></li>
+</ul>
+</div>
+<hr />
+<h2 id="extracao-de-regioes-de-interesse-roi">Extração de Regiões de Interesse (ROI)</h2>
+<p>Em muitos projetos será necessário tratar partes específicas de uma imagem, denominadas Regiões de Interesse (ROI). Para extrair uma ROI é possível usar a ferramenta de slicing do NumPy.</p>
+<p>Em uma imagem colorida (RGB), geralmente representada por um array com a forma (altura, largura, canais), o slicing permite selecionar uma parte da imagem, definindo intervalos para as dimensões de altura e largura.</p>
+<p>A operação de slicing é feita com a seguinte sintaxe: <code>imagem[a1:b1, a2:b2, c1:c2]</code>. O operador <code>:</code> permite a seleção de todos os elementos entre <code>a</code> e <code>b</code>.</p>
+<blockquote>
+<p><strong>Extraia uma ROI contendo a imagem inteira:</strong></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Extraia uma ROI contendo a imagem inteira</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">roi</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Exiba a ROI com Matplotlib</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Extraia uma ROI contendo a metade esquerda da imagem:</strong></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Extraia uma ROI contendo a metade esquerda da imagem</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">roi</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">600</span><span class="p">,</span> <span class="p">:]</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Exiba a ROI com Matplotlib</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Agora vamos extrair apenas a face do Gato:</strong></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Extraia uma ROI explicitamente contendo a face do gato</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">roi</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="p">[</span><span class="mi">150</span><span class="p">:</span><span class="mi">550</span><span class="p">,</span> <span class="mi">500</span><span class="p">:</span><span class="mi">950</span><span class="p">,</span> <span class="p">:]</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Exiba a ROI com Matplotlib</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="desenhando-formas-geometricas-na-imagem">Desenhando Formas Geométricas na Imagem</h2>
+<p>Nesta seção vamos explorar as funções do OpenCV que permitem a inserção de formas geométricas na imagem.</p>
+<p>Essas funções de desenho são amplamente utilizadas em aplicações práticas:</p>
+<ul>
+<li>Visualização: Desenhar contornos, destacar objetos e adicionar feedback visual em algoritmos de detecção (como detecção de rostos, contagem de objetos, ou rastreamento de movimento).</li>
+<li>Anotação e Rotulagem: Facilitar a anotação manual de dados para treinamento de modelos de machine learning.</li>
+<li>Depuração: Durante o desenvolvimento, ajudam a verificar se os algoritmos de processamento de imagem estão funcionando corretamente, mostrando áreas de interesse ou resultados diretamente sobre a imagem.</li>
+</ul>
+<h3 id="desenhando-linhas">Desenhando Linhas</h3>
+<p>Vamos começar desenhando linhas na imagem com a função <code>cv2.line()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Faça uma cópia da imagem_rgb</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">imagem_com_linhas</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Desenhe um X na imagem (2 linhas)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span> <span class="o">=</span> <span class="n">imagem_com_linhas</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>         <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>         <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span> 
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>         <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>         <span class="n">thickness</span> <span class="o">=</span>  <span class="mi">10</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        <span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span> <span class="o">=</span> <span class="n">imagem_com_linhas</span><span class="p">,</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>         <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>         <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>         <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>         <span class="n">thickness</span> <span class="o">=</span>  <span class="mi">10</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>        <span class="p">)</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="c1"># Plote a imagem</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_com_linhas</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="desenhando-formas-geometricas">Desenhando Formas Geométricas</h3>
+<p>A função <code>cv2.rectangle()</code> desenha um retângulo na imagem de entrada.</p>
+<p><img alt="rectangle_coords" src="../../assets/rectangle.png" /></p>
+<blockquote>
+<p><strong>Desenhe uma caixa delimitadora ao redor do gato</strong></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Faça uma cópia da imagem_rgb</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">imagem_com_retangulos</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Desenhe uma Bounding Box ao redor do gato</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span> <span class="o">=</span> <span class="n">imagem_com_retangulos</span><span class="p">,</span> 
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>              <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">170</span><span class="p">),</span> 
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>              <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1120</span><span class="p">,</span> <span class="mi">1150</span><span class="p">),</span> 
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>              <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>              <span class="n">thickness</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="c1"># Plote a imagem</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_com_retangulos</span><span class="p">)</span>
+</code></pre></div>
+<p>De forma similar, a função <code>cv2.circle</code> desenha um círculo na imagem:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Faça uma cópia da imagem_rgb</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">imagem_com_circulos</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Desenhe um círculo para cobrir o rosto do gato</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">imagem_com_circulos</span><span class="p">,</span> 
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>           <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> 
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>           <span class="n">radius</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> 
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>           <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> 
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>           <span class="n">thickness</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1"># Plote a imagem</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_com_circulos</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="inserindo-textos-na-imagem">Inserindo Textos na Imagem</h3>
+<p>Também é possível inserir textos na imagem com a função <code>cv2.putText()</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Crie uma cópia da imagem RGB</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">imagem_com_texto</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Defina o texto que quer inserir</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">texto</span> <span class="o">=</span> <span class="s2">&quot;Gato Gordo!&quot;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Insira o texto na imagem</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="n">img</span><span class="o">=</span><span class="n">imagem_com_texto</span><span class="p">,</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    <span class="n">text</span><span class="o">=</span><span class="n">texto</span><span class="p">,</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    <span class="n">org</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    <span class="n">fontFace</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="n">fontScale</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>    <span class="n">thickness</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="p">)</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="c1"># Use a função cv2.arrowedLine() para desenhar </span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="c1"># uma seta apontando do texto para o gato</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="n">cv2</span><span class="o">.</span><span class="n">arrowedLine</span><span class="p">(</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>    <span class="n">img</span><span class="o">=</span><span class="n">imagem_com_texto</span><span class="p">,</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>    <span class="n">pt1</span><span class="o">=</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>    <span class="n">pt2</span><span class="o">=</span><span class="p">(</span><span class="mi">550</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>    <span class="n">thickness</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="p">)</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="c1"># Exiba</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_com_texto</span><span class="p">)</span>
+</code></pre></div>
+<div class="grid cards">
+<ul>
+<li><img alt="💡" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f4a1.svg" title=":bulb:"> <strong>Uma aplicação útil é a inserção de Timestamps na imagem.</strong></li>
+</ul>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Importe a biblioteca datetime</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">import</span> <span class="nn">datetime</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Faça uma cópia da imagem</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">imagem_com_timestamp</span> <span class="o">=</span> <span class="n">imagem_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Armazene a data e hora atual em uma variável</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">texto</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># Insera o texto na imagem</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="n">img</span><span class="o">=</span><span class="n">imagem_com_timestamp</span><span class="p">,</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="n">text</span><span class="o">=</span><span class="n">texto</span><span class="p">,</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    <span class="n">org</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">1200</span><span class="p">),</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>    <span class="n">fontFace</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>    <span class="n">fontScale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>    <span class="n">thickness</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="p">)</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="c1"># Plote a imagem</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagem_com_timestamp</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="operacoes-logicas">Operações Lógicas</h2>
+<p>As operações lógicas bitwise no OpenCV permitem manipular os pixels de uma imagem de maneira binária, usando operações como AND, OR, XOR, e NOT. Essas operações são fundamentais para combinar, mascarar ou destacar regiões específicas de imagens. Elas são comumente usadas em tarefas de segmentação, extração de regiões de interesse e combinação de imagens.</p>
+<p><img alt="logic" src="../../assets/logic.png" /></p>
+<p>Para demonstrar as operações lógicas, vamos criar duas máscaras binárias, uma contendo um círculo e outra um quadrado</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Criar duas imagens vazias usando NumPy</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Dimensões da imagem (400x400)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">quadrado</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">circulo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># Desenhar um retângulo branco na primeira imagem</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">quadrado</span><span class="p">,</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">),</span> <span class="mi">255</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1"># Desenhar um círculo branco na segunda imagem</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">circulo</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1"># Mostrar as imagens em subplots</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">quadrado</span><span class="p">)</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">circulo</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="operacao-not">Operação NOT</h3>
+<blockquote>
+<p><code>cv2.bitwise_not()</code></p>
+</blockquote>
+<ul>
+<li>Realiza uma operação NOT bit a bit, invertendo todos os bits de uma imagem. Os pixels pretos (0) tornam-se brancos (255), e os brancos tornam-se pretos.</li>
+<li>Aplicação: Usada para inverter imagens ou criar máscaras complementares.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Inverta a imagem do círculo</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_not</span><span class="p">(</span><span class="n">circulo</span><span class="p">)</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Exiba a imagem</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="operacao-and">Operação AND</h3>
+<blockquote>
+<p><code>cv2.bitwise_and()</code></p>
+</blockquote>
+<ul>
+<li>Realiza uma operação AND bit a bit entre duas imagens. O pixel resultante será branco (255) apenas se os dois pixels correspondentes forem brancos nas duas imagens.</li>
+<li>Aplicação: Usada para segmentar ou extrair uma região específica de uma imagem usando uma máscara.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Aplique a operação AND nas imagens do quadrado e círculo</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">quadrado</span><span class="p">,</span> <span class="n">circulo</span><span class="p">)</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Exiba a imagem</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="operacao-or">Operação OR</h3>
+<blockquote>
+<p><code>cv2.bitwise_or</code></p>
+</blockquote>
+<ul>
+<li>Realiza uma operação OR bit a bit entre duas imagens. O pixel resultante será branco se pelo menos um dos pixels correspondentes for branco em uma das imagens.</li>
+<li>Aplicação: Usada para combinar duas imagens ou sobrepor regiões.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Aplique a operação OR</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">quadrado</span><span class="p">,</span> <span class="n">circulo</span><span class="p">)</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Exiba a imagem</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="operacao-bitwise-xor">Operação Bitwise XOR</h3>
+<ul>
+<li>Realiza uma operação XOR bit a bit entre duas imagens. O pixel resultante será branco se apenas um dos pixels correspondentes for branco, mas não ambos.</li>
+<li>Aplicação: Usada para destacar as diferenças entre duas imagens.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Aplique a operação XOR</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_xor</span><span class="p">(</span><span class="n">quadrado</span><span class="p">,</span> <span class="n">circulo</span><span class="p">)</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># Exiba a imagem</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<div class="grid cards">
+<ul>
+<li><img alt="💡" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f4a1.svg" title=":bulb:"> <strong>O que acontecerá se aplicarmos as operações na nossa imagem de exemplo?</strong></li>
+</ul>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Faça uma cópia da imagem de exemplo em escala de cinza</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">exemplo</span> <span class="o">=</span> <span class="n">imagem_gray</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Exiba a imagem</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">exemplo</span><span class="p">)</span>
+</code></pre></div>
+<p>Agora faça uma máscara binária contendo um círculo</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Crie uma matriz vazia do mesmo tamanho da imagem</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">circulo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">1250</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Desenhe um circulo na imagem</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">circulo</span><span class="p">,</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># Exiba o circulo</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">circulo</span><span class="p">)</span>
+</code></pre></div>
+<p>Faça a operação correta para aplicar a máscara de segmentação na imagem do gato"</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Aplique a operação lógica correta</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">resultado</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">exemplo</span><span class="p">,</span> <span class="n">circulo</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Exiba a imagem</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">resultado</span><span class="p">)</span>
+</code></pre></div>
+<div class="grid cards">
+<ul>
+<li><img alt="➡" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/27a1.svg" title=":arrow_right:">  Continua na próxima seção: <a href="../3-Transforma%C3%A7%C3%B5es-Geom%C3%A9tricas/"><strong>Transformações Geométricas</strong></a>.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/andrematte" target="_blank">André Mattos</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.tracking", "toc.follow", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
