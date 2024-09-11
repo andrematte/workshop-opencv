@@ -49,4 +49,4 @@ Os conteúdos da aula prática foram implementados no formato de Jupyter Noteboo
 
 > **Seção #1**
 
->  Ministrado no dia 10/09/2024, às 14:00 no LabCity, localizado no [Centro de Computação de Alto Desempenho](https://maps.app.goo.gl/BkW6Ry8ZRGAkagEs5) da UFPA. Ministrado por: Carlos André Mattos ([@andrematte](https://github.com/andrematte) - LabCity - UFPA)
+>  Ministrado no dia 10/09/2024, às 14:00 no LabCity, localizado no [Centro de Computação de Alto Desempenho](https://maps.app.goo.gl/BkW6Ry8ZRGAkagEs5) da UFPA, por Carlos André Mattos ([@andrematte](https://github.com/andrematte) - LabCity - UFPA)
